@@ -4,59 +4,53 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.*;
 
 public class MakeDeck {
-	/*ボーカリスト：1　プレイヤー：2　バラドル：3　ダンサー：4　モデル：5*/
-	public static void csvinput() {
-		String filename = "C:\\Users\\cs13055\\Documents\\zemi\\t7s_songs.csv";
+	private static final String SONGS = "C:\\Users\\cs13055\\Documents\\zemi\\t7s_songs.csv";
+	private static final String ATK = "C:\\Users\\cs13055\\Documents\\zemi\\t7s_data.csv";
+	/* ボーカリスト：1　プレイヤー：2　バラドル：3　ダンサー：4　モデル：5 */
+	public static List<String[]> input(String filename) {
 		File file = new File(filename);
-		try(FileInputStream fis = new FileInputStream(file);
+		List<String[]> data = new ArrayList<String[]>();
+		try (FileInputStream fis = new FileInputStream(file);
 				InputStreamReader isr = new InputStreamReader(fis);
 				BufferedReader br = new BufferedReader(isr)) {
 			String line;
-			ArrayList<String[]> data = new ArrayList<String[]>();
 			while ((line = br.readLine()) != null) {
 				String[] cols = line.split(",");
 				data.add(cols);
 			}
-
-			// 読み込みデータの表示
-			for (String[] csvdata : data) {
-				System.out.println("title　: " + csvdata[0]);
-				System.out.println("type　: " + csvdata[1]);
-				System.out.println();
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return data;
 	}
 
-	public static void datainput() {
-		String filename2 = "C:\\Users\\cs13055\\Documents\\zemi\\t7s_data.csv";
-		File file2 = new File(filename2);
-		try(FileInputStream fis2 = new FileInputStream(file2);
-				InputStreamReader isr2 = new InputStreamReader(fis2);
-				BufferedReader br2 = new BufferedReader(isr2)) {
-			String line;
-			ArrayList<String[]> data2 = new ArrayList<String[]>();
-			while ((line = br2.readLine()) != null) {
-				String[] cols = line.split(",");
-				data2.add(cols);
-			}
+	public static List<String[]> csvinput() {
+		List<String[]> songs_data = input(SONGS);
 
-			// 読み込みデータの表示
-			for (String[] inputdata : data2) {
-				System.out.println("ATK　: " + inputdata[0]);
-				System.out.println("type　: " + inputdata[1]);
-				System.out.println();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (String[] csvdata : songs_data) {
+			System.out.println("title　: " + csvdata[0]);
+			System.out.println("type　: " + csvdata[1]);
+			System.out.println();
 		}
+		return songs_data;
 	}
-	
+
+	public static List<String[]> datainput() {
+		List<String[]> atk_data = input(ATK);
+
+		// 読み込みデータの表示
+		for (String[] inputdata : atk_data) {
+			System.out.println("ATK　: " + inputdata[0]);
+			System.out.println("type　: " + inputdata[1]);
+			System.out.println();
+		}
+		return atk_data;
+	}
+
 	public static void calc() {
-		
+
 	}
 }
