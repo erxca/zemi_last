@@ -30,7 +30,7 @@ public class MakeFrame extends JFrame {
 //			}
 //		});
 		MakeDeck.csvinput();
-		MakeDeck.datainput();
+		MakeDeck.calc();
 	}
 
 	/**

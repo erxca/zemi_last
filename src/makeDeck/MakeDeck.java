@@ -27,30 +27,72 @@ public class MakeDeck {
 		return data;
 	}
 
-	public static List<String[]> csvinput() {
+	public static List<SongData> csvinput() {
 		List<String[]> songs_data = input(SONGS);
+		List<SongData> sdatalist = new ArrayList<SongData>(); 
 
 		for (String[] csvdata : songs_data) {
-			System.out.println("title　: " + csvdata[0]);
-			System.out.println("type　: " + csvdata[1]);
+			SongData data = new SongData(csvdata[0],csvdata[1]);
+			sdatalist.add(data);
+			System.out.println("title　: " + data.title);
+			System.out.println("type　: " + data.type);
 			System.out.println();
 		}
-		return songs_data;
+		return sdatalist;
+	}
+	
+	static class SongData {
+		String title;
+		int type;
+		public SongData(String title,String type) {
+			this.title = title;
+			this.type = Integer.parseInt(type);
+		}
 	}
 
-	public static List<String[]> datainput() {
+	public static List<AtkData> datainput() {
 		List<String[]> atk_data = input(ATK);
+		List<AtkData> adatalist = new ArrayList<AtkData>();
 
-		// 読み込みデータの表示
 		for (String[] inputdata : atk_data) {
-			System.out.println("ATK　: " + inputdata[0]);
-			System.out.println("type　: " + inputdata[1]);
+			AtkData data = new AtkData(inputdata[0],inputdata[1]);
+			adatalist.add(data);
+			System.out.println("ATK　: " + data.atk);
+			System.out.println("type　: " + data.type);
 			System.out.println();
 		}
-		return atk_data;
+		return adatalist;
+	}
+	
+	static class AtkData {
+		int atk;
+		int type;
+		public AtkData(String atk,String type) {
+			this.atk = Integer.parseInt(atk);
+			this.type = Integer.parseInt(type);
+		}
+		
 	}
 
 	public static void calc() {
-
+		List<AtkData> atkdata = datainput();
+		int songtype = 5;
+		
+		for(AtkData data: atkdata){
+			if(data.type == songtype ){
+				
+			}
+			System.out.println(data.atk);
+		}
+		
+		Collections.sort(atkdata,new Comparator<AtkData>(){
+			@Override
+			public int compare(AtkData o1, AtkData o2) {
+				return o2.atk - o1.atk;
+			}
+		});
+		for(AtkData data: atkdata){
+			System.out.println(data.atk);
+		}
 	}
 }
